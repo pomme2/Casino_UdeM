@@ -465,7 +465,7 @@ Begin
 end;
 
 --profit par machine
-select tmp.id ,SUM(r.profit) from recette r
+select tmp.id ,SUM(r.profit) Profit_Total from recette r
 join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 join (select * from pieces p where p.id_panne is null) pie 
 on pie.id_machine_jeu = ma.id
@@ -484,7 +484,7 @@ Begin
 
 if @enPanne = 0
     --profit par machine
-	select tmp.id ,SUM(r.profit) from recette r
+	select tmp.id ,SUM(r.profit) Profit_Total from recette r
 	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 	join (select * from pieces p where p.id_panne is not null) pie 
 	on pie.id_machine_jeu = ma.id
@@ -497,7 +497,7 @@ if @enPanne = 0
 	;
 else
 	--profit par machine
-	select tmp.id ,SUM(r.profit) from recette r
+	select tmp.id ,SUM(r.profit) Profit_Total from recette r
 	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 	join (select * from pieces p where p.id_panne is null) pie 
 	on pie.id_machine_jeu = ma.id
@@ -512,7 +512,7 @@ else
 end;
 
 --profit par jeux
-select r.id, r.date_recette, SUM(r.profit) from recette r
+select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
 join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 join (select * from pieces p where p.id_panne is not null) pie 
 on pie.id_machine_jeu = ma.id
@@ -526,7 +526,7 @@ group by r.date_recette, r.id
 
 
 --profit par jeux
-select r.id, r.date_recette, SUM(r.profit) from recette r
+select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
 join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 join (select * from pieces p where p.id_panne is not null) pie 
 on pie.id_machine_jeu = ma.id
@@ -545,7 +545,7 @@ Begin
 
 if @enPanne = 0
 	--profit par jeux
-	select r.id, r.date_recette, SUM(r.profit) from recette r
+	select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
 	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 	join (select * from pieces p where p.id_panne is not null) pie 
 	on pie.id_machine_jeu = ma.id
@@ -558,7 +558,7 @@ if @enPanne = 0
 	;
 else
 	--profit par jeux
-	select r.id, r.date_recette, SUM(r.profit) from recette r
+	select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
 	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
 	join (select * from pieces p where p.id_panne is null) pie 
 	on pie.id_machine_jeu = ma.id
