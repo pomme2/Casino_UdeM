@@ -78,7 +78,37 @@ def rechercheProfitDate(date1):
 def recherchePieceParPanne(enPanne):
     execute_and_write_to_html("recherchePieceParPanne", enPanne, file_name="output_piece_par_panne.html")
 
+
+def NbrPieceParFournisseur():
+    execute_and_write_to_html("NbrPieceParFournisseur", file_name="output_piece_par_fournisseur.html")
+
+def PersonnelSpecifique(id_role):
+    execute_and_write_to_html("PersonnelSpecifique", id_role, file_name="output_personnel_specifique.html")
+
+def listePanne():
+    execute_and_write_to_html("listePanne", file_name="output_liste_panne.html")
+
+def listeProfitJeuParSecteur():
+    execute_and_write_to_html("listeProfitJeuParSecteur", file_name="output_liste_profit_jeu_par_secteur.html")
+
+def listeProfitMachineParSecteur():
+    execute_and_write_to_html("listeProfitMachineParSecteur", file_name="output_liste_profit_machine_par_secteur.html")
+
+def listeProfitMachineParPanne(enPanne):
+    execute_and_write_to_html("listeProfitMachineParPanne", enPanne, file_name="output_liste_profit_machine_par_panne.html")
+
+def listeProfitJeuxParPanne(enPanne):
+    execute_and_write_to_html("listeProfitJeuxParPanne", enPanne, file_name="output_liste_profit_jeux_par_panne.html")
+
 # Execute stored procedures and save results to HTML files
 rechercheProfitInterval('2023-01-01', '2023-04-09')
 rechercheProfitDate('2023-04-01')
 recherchePieceParPanne(1)
+
+NbrPieceParFournisseur()
+PersonnelSpecifique(2)
+listePanne()
+listeProfitJeuParSecteur()
+listeProfitMachineParSecteur()
+listeProfitMachineParPanne(0)
+listeProfitJeuxParPanne(0)

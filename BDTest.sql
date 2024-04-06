@@ -357,10 +357,10 @@ end;
 select * from personnel p1 where id_role =1;
 
 go
-create or alter procedure PersonnelSpecifique
+create or alter procedure PersonnelSpecifique(@id_role int)
 as
 Begin
-select * from personnel p1 where id_role =1;
+select * from personnel p1 where id_role = @id_role
 	;
 end;
 
