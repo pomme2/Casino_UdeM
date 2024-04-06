@@ -345,9 +345,24 @@ select * from systeme_sonorisation;
 
 select f.id ,count(p.id_piece) NbrPiece from pieces p join fournisseur f on p.id_fournisseur=f.id group by f.id;
 
+go
+create or alter procedure NbrPieceParFournisseur
+as
+Begin
+select f.id ,count(p.id_piece) NbrPiece from pieces p join fournisseur f on p.id_fournisseur=f.id group by f.id
+	;
+end;
+
 --par nom aussi
 select * from personnel p1 where id_role =1;
 
+go
+create or alter procedure PersonnelSpecifique
+as
+Begin
+select * from personnel p1 where id_role =1;
+	;
+end;
 
 select * from machine_de_jeu ma
 	join (select pie.id_machine_jeu, pa.date_panne,per.nom, per.prenom, tp.nom NomPanne, tp.categorie from panne pa 
