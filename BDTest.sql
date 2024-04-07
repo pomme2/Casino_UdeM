@@ -58,7 +58,7 @@ drop table if exists jeu;
 drop table if exists fournisseur;
 drop table if exists pieces;
 drop table if exists role_personnel;
-drop table if exists adresse_civic;
+drop table if exists adresse_civique;
 drop table if exists recette;
 drop table if exists panne;
 drop table if exists machine_de_jeu;
@@ -120,7 +120,7 @@ create table systeme_sonorisation(
 	max_volume int,
 );
 
-create table adresse_civic(
+create table adresse_civique(
 	numero_adresse int,
 	rue varchar(50),
 	ville varchar(50),
@@ -188,7 +188,7 @@ alter table pieces add constraint fk_pieces_fournisseur foreign key (id_fourniss
 alter table pieces add constraint fk_pieces_machine foreign key (id_machine_jeu) references machine_de_jeu(id);
 alter table pieces add constraint fk_pieces_panne foreign key (id_panne) references personnel(id);
 alter table personnel add constraint fk_personnel_role foreign key (id_role) references role_personnel(id);
-alter table personnel add constraint fk_personnel_adresse foreign key (numero_adresse, rue, ville) references adresse_civic(numero_adresse, rue, ville);
+alter table personnel add constraint fk_personnel_adresse foreign key (numero_adresse, rue, ville) references adresse_civique(numero_adresse, rue, ville);
 alter table machine_de_jeu add constraint fk_machine_jeu foreign key (id_jeu) references jeu(id);
 alter table recette add constraint fk_recette_machine foreign key (id_machine_de_jeu) references machine_de_jeu(id);
 alter table panne add constraint fk_panne_type foreign key (id_type_panne) references type_panne(id);
@@ -251,7 +251,7 @@ INSERT INTO systeme_sonorisation (id, nom, min_volume, max_volume) VALUES
 (4, 'Studio Quality', 40, 400),
 (5, 'Outdoor Event', 50, 500);
 
-INSERT INTO adresse_civic (numero_adresse, rue, ville) VALUES
+INSERT INTO adresse_civique (numero_adresse, rue, ville) VALUES
 ( 101, 'Main St', 'Montreal'),
 ( 202, 'Second St', 'Quebec City'),
 ( 303, 'Third St', 'Sherbrooke'),

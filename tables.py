@@ -22,70 +22,6 @@ for table in tables:
     table_name = table[0]
     nav_links += f"<li><a href='#{table_name}'>{table_name}</a></li>"
 
-# CSS styles
-css_styles = """
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    nav {
-        background-color: #333;
-        padding: 10px 0;
-    }
-    nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
-    nav ul li {
-        display: inline;
-        margin-right: 20px;
-    }
-    nav ul li a {
-        color: #fff; 
-        text-decoration: none; 
-        font-weight: bold; 
-        font-size: smaller; 
-        font-family: Arial, sans-serif;
-    }
-    nav ul li a:hover {
-        color: #ccc;
-    }
-    table {
-        margin: 0 auto; /* Center the table */
-        max-width: 800px; /* Limit the maximum width */
-        width: 100%; /* Ensure the table takes the full width within its container */
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    a {
-        color: #007bff; 
-        text-decoration: none; 
-        font-weight: bold; 
-    }
-    a:hover {
-        color: #0056b3; 
-    }
-    h2, h1 {
-        text-align: center;
-    }
-</style>
-
-"""
-
 # Generating HTML content for table data
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -93,7 +29,7 @@ html_content = f"""<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Data</title>
-    {css_styles}
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -101,11 +37,7 @@ html_content = f"""<!DOCTYPE html>
     <ul>{nav_links}</ul>
 </nav>
 
-<h1>Casino UdeM 2024</h1>
-
-<div style="text-align: center;">
-    <a href="requetes.html">Voir Requetes SQL</a>
-</div>
+<h1>Casino</h1>
 
 """
 
@@ -120,6 +52,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+
+<div id="bottom-link" style="text-align: center;">
+    <a href="requetes.html">Consulter les requêtes SQL</a>
+</div>
+
 """
 
 for table in tables:
@@ -127,7 +64,7 @@ for table in tables:
     cursor.execute(f"SELECT * FROM {table_name};")
     rows = cursor.fetchall()
 
-    html_content += f"<div id='{table_name}'><h2>{table_name}</h2>"
+    html_content += f"<div id='{table_name}'><h2>{table_name}:</h2>"
     html_content += "<table border='1'><tr>"
     # Generating table headers
     for column in cursor.description:

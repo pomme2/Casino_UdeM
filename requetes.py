@@ -59,7 +59,7 @@ def execute_and_write_to_html(proc_name, *args, file_name):
 <body>
 {html_result}
 <div style="text-align: center;">
-    <a href="requetes.html">Back to Requetes</a>
+    <a href="requetes.html">Retour aux requêtes</a>
 </div>
 
 </body>
