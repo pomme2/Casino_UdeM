@@ -47,19 +47,19 @@ def generate_html_table(header, data):
 def execute_and_write_to_html(proc_name, *args, file_name):
     result, header = execute_stored_procedure(proc_name, *args)
     html_result = generate_html_table(header, result)
-    # Linking to styles.css file
+    # Linking to tables.css file
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Data</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tables.css">
 </head>
 <body>
 {html_result}
 <div style="text-align: center;">
-    <a href="requetes.html">Retour aux requêtes</a>
+    <a href="requetes.html" class="button">Retour aux requêtes</a>
 </div>
 
 </body>

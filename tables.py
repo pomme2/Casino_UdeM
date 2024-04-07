@@ -29,34 +29,35 @@ html_content = f"""<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Data</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="casino.css">
 </head>
+
 <body>
-
-<nav>
-    <ul>{nav_links}</ul>
-</nav>
-
-<h1>Casino</h1>
-
-"""
-
-javascript_code = """
-<script>
-// Fonctionnalité pour supprimer des lignes de tableau
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.target.closest('tr').remove(); // Supprime la ligne du tableau
-        });
-    });
-});
-</script>
-
-<div id="bottom-link" style="text-align: center;">
-    <a href="requetes.html">Consulter les requêtes SQL</a>
+<div class="sidebar">
+    <h2 class="sidebar-title">Casino</h2>
+        <nav>
+            <ul>{nav_links}</ul>
+        </nav>
+    <div id="bottom-link" style="text-align: center;">
+        <a href="requetes.html" class="button" class="button">Consulter les requêtes SQL</a>
+    </div>    
 </div>
 
+<div class="main-content">
+
+    """
+javascript_code = """
+    <script>
+    // Fonctionnalité pour supprimer des lignes de tableau
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.target.closest('tr').remove(); // Supprime la ligne du tableau
+            });
+        });
+    });
+    </script>
+</div>
 """
 
 for table in tables:
