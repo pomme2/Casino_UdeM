@@ -109,6 +109,19 @@ html_content = f"""<!DOCTYPE html>
 
 """
 
+javascript_code = """
+<script>
+// Fonctionnalité pour supprimer des lignes de tableau
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.target.closest('tr').remove(); // Supprime la ligne du tableau
+        });
+    });
+});
+</script>
+"""
+
 for table in tables:
     table_name = table[0]
     cursor.execute(f"SELECT * FROM {table_name};")
@@ -125,13 +138,17 @@ for table in tables:
         html_content += "<tr>"
         for value in row:
             html_content += f"<td>{value}</td>"
+    # Ajout du bouton de suppression dans chaque ligne
+        # html_content += "<td><button class='delete-btn'>Supprimer</button></td>"
         html_content += "</tr>"
+
     html_content += "</table></div>"
 
-html_content += "</body></html>"
+html_content += javascript_code
+html_content += "</body></html>" 
 
-# Saving HTML content to a file
-with open("database_content.html", "w") as file:
+# Saving HTML content to a file with UTF-8 encoding
+with open("database_content.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
 print("HTML content saved to database_content.html")
