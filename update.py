@@ -17,7 +17,7 @@ cursor = cnxn.cursor()
 # les 2 "?" Représente une valeur à fournir durant l'exécution
 sqlCommand = "update jeu set nom=? where id=?;"
 
-data = ("python", 3)
+data = ("Poker", 3)
 # ces 2 "?" Seront remplacés par les valeurs pthon et 10
 cursor.execute(sqlCommand, data)
 
