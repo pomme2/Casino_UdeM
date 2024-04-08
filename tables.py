@@ -67,9 +67,11 @@ for table in tables:
 
     html_content += f"<div id='{table_name}'><h2>{table_name}:</h2>"
     html_content += "<table border='1'><tr>"
+
     # Generating table headers
     for column in cursor.description:
         html_content += f"<th>{column[0]}</th>"
+    html_content += "<th>Actions</th>"  # Ajout de l'en-tête "Actions"
     html_content += "</tr>"
     # Generating table rows
     for row in rows:
@@ -77,7 +79,7 @@ for table in tables:
         for value in row:
             html_content += f"<td>{value}</td>"
     # Ajout du bouton de suppression dans chaque ligne
-        # html_content += "<td><button class='delete-btn'>Supprimer</button></td>"
+        html_content += "<td><button class='delete-btn'>Supprimer</button></td>"
         html_content += "</tr>"
 
     html_content += "</table></div>"
