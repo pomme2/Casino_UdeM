@@ -12,6 +12,17 @@ conn_str = (
 )
 cnxn = pyodbc.connect(conn_str)
 
+def camel_case_to_title(camel_case_str):
+    words = []
+    start_index = 0
+    for i in range(1, len(camel_case_str)):
+        if camel_case_str[i].isupper():
+            words.append(camel_case_str[start_index:i])
+            start_index = i
+    words.append(camel_case_str[start_index:]) 
+    
+    return ' '.join(word.capitalize() for word in words)
+
 def execute_stored_procedure(proc_name, *args):
     """
     Execute a stored procedure with optional arguments and return the result.
@@ -57,9 +68,10 @@ def execute_and_write_to_html(proc_name, *args, file_name):
     <link rel="stylesheet" href="tables.css">
 </head>
 <body>
+<h2>{camel_case_to_title(proc_name)}:</h2>
 {html_result}
 <div style="text-align: center;">
-    <a href="requetes.html" class="button">Retour aux requêtes</a>
+    <a href="requetes.html" class="button">Retour aux requ&ecirc;tes</a>
 </div>
 
 </body>
@@ -77,7 +89,6 @@ def rechercheProfitDate(date1):
 
 def recherchePieceParPanne(enPanne):
     execute_and_write_to_html("recherchePieceParPanne", enPanne, file_name="output_piece_par_panne.html")
-
 
 def NbrPieceParFournisseur():
     execute_and_write_to_html("NbrPieceParFournisseur", file_name="output_piece_par_fournisseur.html")

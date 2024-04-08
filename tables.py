@@ -88,7 +88,7 @@ html_content += javascript_code
 html_content += "</body></html>" 
 
 # Saving HTML content to a file with UTF-8 encoding
-with open("database_content.html", "w", encoding="utf-8") as file:
+with open("casino.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
-print("HTML content saved to database_content.html")
+print("HTML content saved to casino.html")
