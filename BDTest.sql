@@ -184,15 +184,15 @@ create table pieces(
 	id_panne int
 );
 
-alter table pieces add constraint fk_pieces_fournisseur foreign key (id_fournisseur) references fournisseur(id;
-alter table pieces add constraint fk_pieces_machine foreign key (id_machine_jeu) references machine_de_jeu(id);
-alter table pieces add constraint fk_pieces_panne foreign key (id_panne) references personnel(id);
-alter table personnel add constraint fk_personnel_role foreign key (id_role) references role_personnel(id);
-alter table personnel add constraint fk_personnel_adresse foreign key (numero_adresse, rue, ville) references adresse_civique(numero_adresse, rue, ville);
-alter table machine_de_jeu add constraint fk_machine_jeu foreign key (id_jeu) references jeu(id);
-alter table recette add constraint fk_recette_machine foreign key (id_machine_de_jeu) references machine_de_jeu(id);
-alter table panne add constraint fk_panne_type foreign key (id_type_panne) references type_panne(id);
-alter table panne add constraint fk_panne_personnel foreign key (id_personnel) references personnel(id);
+alter table pieces add constraint fk_pieces_fournisseur foreign key (id_fournisseur) references fournisseur(id) ON DELETE CASCADE;
+alter table pieces add constraint fk_pieces_machine foreign key (id_machine_jeu) references machine_de_jeu(id) ON DELETE CASCADE;
+alter table pieces add constraint fk_pieces_panne foreign key (id_panne) references personnel(id) ON DELETE CASCADE;
+alter table personnel add constraint fk_personnel_role foreign key (id_role) references role_personnel(id) ON DELETE CASCADE;
+alter table personnel add constraint fk_personnel_adresse foreign key (numero_adresse, rue, ville) references adresse_civique(numero_adresse, rue, ville) ON DELETE CASCADE;
+alter table machine_de_jeu add constraint fk_machine_jeu foreign key (id_jeu) references jeu(id) ON DELETE CASCADE;
+alter table recette add constraint fk_recette_machine foreign key (id_machine_de_jeu) references machine_de_jeu(id) ON DELETE CASCADE;
+alter table panne add constraint fk_panne_type foreign key (id_type_panne) references type_panne(id) ON DELETE CASCADE;
+alter table panne add constraint fk_panne_personnel foreign key (id_personnel) references personnel(id) ON DELETE CASCADE;
 
 
 INSERT INTO jeu (id, nom, min_mise, max_mise) VALUES
@@ -571,5 +571,3 @@ else
 	;
 
 end;
-
-SELECT * FROM Jeu;
