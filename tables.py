@@ -72,7 +72,7 @@ def render_tables_html():
             row_id = row[0]  # Assumant que l'ID est la première colonne de la table
             html_content += f'''
             <td>
-                <form action="/delete_row" method="post">
+                <form action="/" method="POST">
                     <input type="hidden" name="table_name" value="{table_name}">
                     <input type="hidden" name="row_id" value="{row_id}">
                     <button type="submit" class="delete-btn">Supprimer</button>

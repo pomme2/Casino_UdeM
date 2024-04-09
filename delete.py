@@ -52,13 +52,10 @@ def delete_row(table_name, row_id):
 
     # Instruction SQL pour supprimer une ligne
     delete_statement = f"DELETE FROM {table_name} WHERE id = ?"
+
+    cursor.execute(delete_statement, (row_id,))
+    cnxn.commit()  
     
-    try:
-        cursor.execute(delete_statement, (row_id,))
-        cnxn.commit()  # Valide les modifications dans la base de données
-        print(f"Row with ID {row_id} was successfully deleted from table {table_name}.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        cursor.close()
-        cnxn.close()
+    print(f"Row with ID {row_id} was successfully deleted from table {table_name}.")
+
+    cnxn.close()

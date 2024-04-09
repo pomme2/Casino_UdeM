@@ -184,7 +184,7 @@ create table pieces(
 	id_panne int
 );
 
-alter table pieces add constraint fk_pieces_fournisseur foreign key (id_fournisseur) references fournisseur(id);
+alter table pieces add constraint fk_pieces_fournisseur foreign key (id_fournisseur) references fournisseur(id;
 alter table pieces add constraint fk_pieces_machine foreign key (id_machine_jeu) references machine_de_jeu(id);
 alter table pieces add constraint fk_pieces_panne foreign key (id_panne) references personnel(id);
 alter table personnel add constraint fk_personnel_role foreign key (id_role) references role_personnel(id);
@@ -571,3 +571,5 @@ else
 	;
 
 end;
+
+SELECT * FROM Jeu;

@@ -10,7 +10,8 @@ def show_tables():
     html_content = render_tables_html()
     return render_template_string(html_content)
 
-@app.route('/delete_row', methods=['POST'])
+# Faire distinction entre tous les delete avec les table 
+@app.route('/', methods=['POST'])
 def handle_delete_row():
     # Extrait le nom de la table et l'ID de la ligne à supprimer depuis le formulaire
     table_name = request.form['table_name']
