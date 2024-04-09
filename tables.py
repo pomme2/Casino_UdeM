@@ -1,7 +1,8 @@
 import pyodbc
 
 def render_tables_html():
-    # Establishing a connection to the database
+    # Établissement d'une connexion à la base de données
+
     conn_str = (
         "Driver=ODBC Driver 17 for SQL Server;"
         "Server=localhost;"
@@ -12,18 +13,18 @@ def render_tables_html():
     )
     cnxn = pyodbc.connect(conn_str)
 
-    # Retrieving table names
+    # Récupération des noms de table
     cursor = cnxn.cursor()
     cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE';")
     tables = cursor.fetchall()
 
-    # Generating HTML content for navigation links
+    # Generation HTML
     nav_links = ""
     for table in tables:
         table_name = table[0]
         nav_links += f"<li><a href='#{table_name}'>{table_name}</a></li>"
 
-    # Generating HTML content for table data
+    # Generation HTML pour les tables
     html_content = f"""<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -56,13 +57,12 @@ def render_tables_html():
         html_content += f"<div id='{table_name}'><h2>{table_name}:</h2>"
         html_content += "<table border='1'><tr>"
 
-        # Generating table headers
+        # Generation des Titres
         for column in cursor.description:
             html_content += f"<th>{column[0]}</th>"
         html_content += "<th>Actions</th>"  # Ajout de l'en-tête "Actions"
         html_content += "</tr>"
 
-        # Generating table rows
         # Remplacement du bouton de suppression par un formulaire
         for row in rows:
             html_content += "<tr>"

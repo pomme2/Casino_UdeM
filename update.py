@@ -1,6 +1,6 @@
 import pyodbc
 
-# Establishing a connection to the database
+# Établissement d'une connexion à la base de données SQLserver (notes de cours ALIVEcode)
 conn_str = (
     "Driver=ODBC Driver 17 for SQL Server;"
     "Server=localhost;"
@@ -21,10 +21,10 @@ data = ("Poker", 3)
 # ces 2 "?" Seront remplacés par les valeurs pthon et 10
 cursor.execute(sqlCommand, data)
 
-# Committing the transaction
+#Validation transaction
 cnxn.commit()
 
-print("Data modified successfully.")
+print("Données modifiées avec succès")
 
 cursor.close()
 cnxn.close()

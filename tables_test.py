@@ -1,6 +1,6 @@
 import pyodbc
 
-# Establishing a connection to the database
+# Établissement d'une connexion à la base de données SQLserver
 conn_str = (
     "Driver=ODBC Driver 17 for SQL Server;"
     "Server=localhost;"
@@ -11,18 +11,16 @@ conn_str = (
 )
 cnxn = pyodbc.connect(conn_str)
 
-# Retrieving table names
+
 cursor = cnxn.cursor()
 cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE';")
 tables = cursor.fetchall()
 
-# Generating HTML content for navigation links
 nav_links = ""
 for table in tables:
     table_name = table[0]
     nav_links += f"<li><a href='#{table_name}'>{table_name}</a></li>"
 
-# Generating HTML content for table data
 html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,12 +66,10 @@ for table in tables:
     html_content += f"<div id='{table_name}'><h2>{table_name}:</h2>"
     html_content += "<table border='1'><tr>"
 
-    # Generating table headers
     for column in cursor.description:
         html_content += f"<th>{column[0]}</th>"
     html_content += "<th>Actions</th>"  # Ajout de l'en-tête "Actions"
     html_content += "</tr>"
-    # Generating table rows
     for row in rows:
         html_content += "<tr>"
         for value in row:
@@ -87,7 +83,7 @@ for table in tables:
 html_content += javascript_code
 html_content += "</body></html>" 
 
-# Saving HTML content to a file with UTF-8 encoding
+# Saving HTML content to a file 
 with open("casino.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 

@@ -1,7 +1,7 @@
 import pyodbc
 from html import escape
 
-# Establishing a connection to the database
+# Établissement d'une connexion à la base de données
 conn_str = (
     "Driver=ODBC Driver 17 for SQL Server;"
     "Server=localhost;"
@@ -37,14 +37,14 @@ def execute_stored_procedure(proc_name, *args):
         rows = None
     return rows, cursor.description
 
-# Function to generate HTML from query results
+
 def generate_html_table(header, data):
     html = "<table border='1'><tr>"
-    # Adding table headers
+   
     for column in header:
         html += f"<th>{escape(str(column[0]))}</th>"
     html += "</tr>"
-    # Adding table rows
+   
     if data:
         for row in data:
             html += "<tr>"
@@ -54,7 +54,7 @@ def generate_html_table(header, data):
     html += "</table>"
     return html
 
-# Function to execute stored procedure and write HTML result to a file
+
 def execute_and_write_to_html(proc_name, *args, file_name):
     result, header = execute_stored_procedure(proc_name, *args)
     html_result = generate_html_table(header, result)
@@ -80,7 +80,7 @@ def execute_and_write_to_html(proc_name, *args, file_name):
     with open(file_name, "w") as file:
         file.write(html_content)
 
-# Example stored procedure functions:
+# Fonctions pour les procédures stockées :
 def rechercheProfitInterval(date1, date2):
     execute_and_write_to_html("rechercheProfitInterval", date1, date2, file_name="output_profit_intervalle.html")
 
@@ -111,7 +111,7 @@ def listeProfitMachineParPanne(enPanne):
 def listeProfitJeuxParPanne(enPanne):
     execute_and_write_to_html("listeProfitJeuxParPanne", enPanne, file_name="output_liste_profit_jeux_par_panne.html")
 
-# Execute stored procedures and save results to HTML files
+# Exécute les procédures stockées et enregistre les résultats dans des fichiers HTML
 rechercheProfitInterval('2023-01-01', '2023-04-09')
 rechercheProfitDate('2023-04-01')
 recherchePieceParPanne(1)
