@@ -65,7 +65,7 @@ def execute_and_write_to_html(proc_name, *args, file_name):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Data</title>
-    <link rel="stylesheet" href="tables.css">
+    <link rel="stylesheet" href="../static/tables.css">
 </head>
 <body>
 <h2>{camel_case_to_title(proc_name)}:</h2>

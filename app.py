@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, url_for, render_template_string
 from delete import delete_row  # Assurez-vous que cette fonction accepte 'table_name' et 'row_id'
 from tables import render_tables_html  # Cette fonction doit retourner le HTML des tables
 
-app = Flask(__name__)
+app = Flask(__name__, '/static')
 
 @app.route('/')
 def show_tables():
