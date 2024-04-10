@@ -1,6 +1,7 @@
 --create database projdb;
+go
 --use projdb;
-
+go
 if exists(SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
           WHERE TABLE_NAME = 'recette' )
 begin
@@ -195,6 +196,7 @@ alter table panne add constraint fk_panne_type foreign key (id_type_panne) refer
 alter table panne add constraint fk_panne_personnel foreign key (id_personnel) references personnel(id) ON DELETE CASCADE;
 
 
+
 INSERT INTO jeu (id, nom, min_mise, max_mise) VALUES
 (1, 'Blackjack', 5, 500),
 (2, 'Roulette', 2, 300),
@@ -307,267 +309,127 @@ INSERT INTO pieces (id, nom, date_service, etat, id_fournisseur, id_machine_jeu,
 (4, 'Joystick', '2023-08-01', 'New', 4, 4, 4),
 (5, 'Button Set', '2023-09-01', 'New', 5, 5, 5);
 
+DELETE FROM jeu WHERE id =1;
+DELETE FROM machine_de_jeu WHERE id =1;
+DELETE FROM distributeur_de_jeton WHERE id =1;
+DELETE FROM panneau_affichage WHERE id =1;
+DELETE FROM camera_surveillance WHERE id =1;
+DELETE FROM outils_de_communication WHERE id =1;
+DELETE FROM system_eclairage WHERE id =1;
+DELETE FROM systeme_sonorisation WHERE id =1;
+DELETE FROM role_personnel WHERE id =1;
+DELETE FROM personnel WHERE id =1;
+DELETE FROM recette WHERE id =1;
+DELETE FROM type_panne WHERE id =1;
+DELETE FROM panne WHERE id =1;
+DELETE FROM fournisseur WHERE id =1;
+DELETE FROM pieces WHERE id =1;
 
-select * from recette where date_recette between '2023-01-01' and '2023-04-09';
-go
-create or alter procedure rechercheProfitInterval (@date1 date, @date2 date)
-as
-Begin
-    select * from recette where date_recette between @date1 and @date2;
-end;
+UPDATE jeu
+SET 
+    nom = 'New Name',
+    min_mise = 10,
+    max_mise = 1000
+WHERE
+    id = 1;
+UPDATE machine_de_jeu
+SET 
+    date_service = '2024-04-09',
+    id_jeu = 1
+WHERE
+    id = 1;
+UPDATE distributeur_de_jeton
+SET 
+    nombre_jeton = 100,
+    date_service = '2024-04-09'
+WHERE
+    id = 1;
+UPDATE panneau_affichage
+SET 
+    marque = 'New Brand',
+    longueur = 100,
+    largeur = 50
+WHERE
+    id = 1;
+UPDATE camera_surveillance
+SET 
+    secteur = 2
+WHERE
+    id = 1;
 
-select * from recette where date_recette = '2023-04-01';
-go
-create or alter procedure rechercheProfitDate (@date1 date)
-as
-Begin
-    select * from recette where date_recette = @date1;
-end;
-
-select * from pieces where id_panne is not null;
-select * from pieces where id_panne is null;
-go
-create or alter procedure recherchePieceParPanne (@enPanne binary)
-as
-Begin
-if @enPanne = 0
-    select * from pieces where id_panne is null;
-else
-	select * from pieces where id_panne is not null;
-end;
-
-select * from distributeur_de_jeton;
-select * from panneau_affichage;
-select * from camera_surveillance;
-select * from outils_de_communication;
-select * from system_eclairage;
-select * from systeme_sonorisation;
-
-select f.id ,count(p.id) NbrPiece from pieces p join fournisseur f on p.id_fournisseur=f.id group by f.id;
-
-go
-create or alter procedure NbrPieceParFournisseur
-as
-Begin
-select f.id ,count(p.id) NbrPiece from pieces p join fournisseur f on p.id_fournisseur=f.id group by f.id
-	;
-end;
-
---par nom aussi
-select * from personnel p1 where id_role =1;
-
-go
-create or alter procedure PersonnelSpecifique(@id_role int)
-as
-Begin
-select * from personnel p1 where id_role = @id_role
-	;
-end;
-
-select * from machine_de_jeu ma
-	join (select pie.id_machine_jeu, pa.date_panne,per.nom, per.prenom, tp.nom NomPanne, tp.categorie from panne pa 
-	join pieces pie on pie.id_panne = pa.id 
-	join personnel per on per.id = pa.id_personnel
-	join type_panne tp on tp.id = pa.id_type_panne)
-	tmp on tmp.id_machine_jeu =ma.id
-	;
-
-go
-create or alter procedure listePanne
-as
-Begin
-	select * from machine_de_jeu ma
-	join (select pie.id_machine_jeu, pa.date_panne,per.nom, per.prenom, tp.nom NomPanne, tp.categorie from panne pa 
-	join pieces pie on pie.id_panne = pa.id 
-	join personnel per on per.id = pa.id_personnel
-	join type_panne tp on tp.id = pa.id_type_panne)
-	tmp on tmp.id_machine_jeu =ma.id
-	;
-end;
-
-
-select rp.secteur, tmp2.id_jeu, sum(tmp2.profit) ProfitParSecteur from role_personnel rp
-join personnel per 
-on per.id_role =rp.id
-join(select pa.id_personnel, pie.id_machine_jeu from panne pa
-join pieces pie
-on pie.id_panne = pa.id) tmp1
-on tmp1.id_personnel = per.id
-join (select ma.id, ma.id_jeu, j.nom, r.profit from machine_de_jeu ma
-join recette r
-on r.id_machine_de_jeu = ma.id
-join jeu j
-on j.id = ma.id_jeu) tmp2
-on tmp2.id = tmp1.id_machine_jeu
-group by rp.secteur, tmp2.id_jeu
-;
-
-go
-create or alter procedure listeProfitJeuParSecteur
-as
-Begin
-	select rp.secteur, tmp2.id_jeu, sum(tmp2.profit) ProfitParSecteur from role_personnel rp
-	join personnel per 
-	on per.id_role =rp.id
-	join(select pa.id_personnel, pie.id_machine_jeu from panne pa
-	join pieces pie
-	on pie.id_panne = pa.id) tmp1
-	on tmp1.id_personnel = per.id
-	join (select ma.id, ma.id_jeu, j.nom, r.profit from machine_de_jeu ma
-	join recette r
-	on r.id_machine_de_jeu = ma.id
-	join jeu j
-	on j.id = ma.id_jeu) tmp2
-	on tmp2.id = tmp1.id_machine_jeu
-	group by rp.secteur, tmp2.id_jeu
-	;
-end;
-
-
---profit machine
-select rp.secteur, tmp2.id, sum(tmp2.profit) ProfitParSecteur from role_personnel rp
-join personnel per 
-on per.id_role =rp.id
-join(select pa.id_personnel, pie.id_machine_jeu from panne pa
-join pieces pie
-on pie.id_panne = pa.id) tmp1
-on tmp1.id_personnel = per.id
-join (select ma.id, ma.id_jeu, j.nom, r.profit from machine_de_jeu ma
-join recette r
-on r.id_machine_de_jeu = ma.id
-join jeu j
-on j.id = ma.id_jeu) tmp2
-on tmp2.id = tmp1.id_machine_jeu
-group by rp.secteur, tmp2.id
-;
-
-go
-create or alter procedure listeProfitMachineParSecteur
-as
-Begin
-	--profit machine
-	select rp.secteur, tmp2.id, sum(tmp2.profit) ProfitParSecteur from role_personnel rp
-	join personnel per 
-	on per.id_role =rp.id
-	join(select pa.id_personnel, pie.id_machine_jeu from panne pa
-	join pieces pie
-	on pie.id_panne = pa.id) tmp1
-	on tmp1.id_personnel = per.id
-	join (select ma.id, ma.id_jeu, j.nom, r.profit from machine_de_jeu ma
-	join recette r
-	on r.id_machine_de_jeu = ma.id
-	join jeu j
-	on j.id = ma.id_jeu) tmp2
-	on tmp2.id = tmp1.id_machine_jeu
-	group by rp.secteur, tmp2.id
-	;
-
-end;
-
---profit par machine
-select tmp.id ,SUM(r.profit) Profit_Total from recette r
-join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-join (select * from pieces p where p.id_panne is null) pie 
-on pie.id_machine_jeu = ma.id
-join jeu j
-on j.id = ma.id_jeu) tmp
-on tmp.id = r.id_machine_de_jeu
-join panne pa
-on pa.id = tmp.id_panne
-group by tmp.id
-;
-
-go
-create or alter procedure listeProfitMachineParPanne(@enPanne binary)
-as
-Begin
-
-if @enPanne = 0
-    --profit par machine
-	select tmp.id ,SUM(r.profit) Profit_Total from recette r
-	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-	join (select * from pieces p where p.id_panne is not null) pie 
-	on pie.id_machine_jeu = ma.id
-	join jeu j
-	on j.id = ma.id_jeu) tmp
-	on tmp.id = r.id_machine_de_jeu
-	join panne pa
-	on pa.id = tmp.id_panne
-	group by tmp.id
-	;
-else
-	--profit par machine
-	select tmp.id ,SUM(r.profit) Profit_Total from recette r
-	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-	join (select * from pieces p where p.id_panne is null) pie 
-	on pie.id_machine_jeu = ma.id
-	join jeu j
-	on j.id = ma.id_jeu) tmp
-	on tmp.id = r.id_machine_de_jeu
-	join panne pa
-	on pa.id = tmp.id_panne
-	group by tmp.id
-	;
-
-end;
-
---profit par jeux
-select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
-join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-join (select * from pieces p where p.id_panne is not null) pie 
-on pie.id_machine_jeu = ma.id
-join jeu j
-on j.id = ma.id_jeu) tmp
-on tmp.id = r.id_machine_de_jeu
-join panne pa
-on pa.id = tmp.id_panne
-group by r.date_recette, r.id
-;
-
-
---profit par jeux
-select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
-join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-join (select * from pieces p where p.id_panne is not null) pie 
-on pie.id_machine_jeu = ma.id
-join jeu j
-on j.id = ma.id_jeu) tmp
-on tmp.id = r.id_machine_de_jeu
-join panne pa
-on pa.id = tmp.id_panne
-group by r.date_recette, r.id
-;
-
-go
-create or alter procedure listeProfitJeuxParPanne(@enPanne binary)
-as
-Begin
-
-if @enPanne = 0
-	--profit par jeux
-	select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
-	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-	join (select * from pieces p where p.id_panne is not null) pie 
-	on pie.id_machine_jeu = ma.id
-	join jeu j
-	on j.id = ma.id_jeu) tmp
-	on tmp.id = r.id_machine_de_jeu
-	join panne pa
-	on pa.id = tmp.id_panne
-	group by r.date_recette, r.id
-	;
-else
-	--profit par jeux
-	select r.id, r.date_recette, SUM(r.profit) AS Profit_Total from recette r
-	join (select ma.id, pie.id_panne, j.id JeuID from machine_de_jeu ma
-	join (select * from pieces p where p.id_panne is null) pie 
-	on pie.id_machine_jeu = ma.id
-	join jeu j
-	on j.id = ma.id_jeu) tmp
-	on tmp.id = r.id_machine_de_jeu
-	join panne pa
-	on pa.id = tmp.id_panne
-	group by r.date_recette, r.id
-	;
-
-end;
+UPDATE outils_de_communication
+SET 
+    type_comm = 'New Type'
+WHERE
+    id = 1;
+UPDATE system_eclairage
+SET 
+    nom = 'New Name',
+    min_luminosite = 50,
+    max_luminosite = 100
+WHERE
+    id = 1;
+UPDATE systeme_sonorisation
+SET 
+    nom = 'New Name',
+    min_volume = 20,
+    max_volume = 80
+WHERE
+    id = 1;
+UPDATE role_personnel
+SET 
+    nom = 'New Name',
+    secteur = 2,
+    expertise = 'New Expertise',
+    droit_acces = 1
+WHERE
+    id = 1;
+UPDATE personnel
+SET 
+    nom = 'New Name',
+    prenom = 'New Firstname',
+    id_role = 2,
+    numero_adresse = 2,
+    rue = 'New Street',
+    ville = 'New City'
+WHERE
+    id = 1;
+UPDATE recette
+SET 
+    date_recette = '2024-04-09',
+    profit = 150.50,
+    cout = 100.25,
+    information = 'Updated information',
+    id_machine_de_jeu = 2,
+    rentable = 1
+WHERE
+    id = 1;
+UPDATE type_panne
+SET 
+    nom = 'New Name',
+    categorie = 'New Category'
+WHERE
+    id = 1;
+UPDATE panne
+SET 
+    id_type_panne = 2,
+    date_panne = '2024-04-09',
+    id_personnel = 2
+WHERE
+    id = 1;
+UPDATE fournisseur
+SET 
+    nom = 'New Name',
+    ville = 'New City'
+WHERE
+    id = 1;
+UPDATE pieces
+SET 
+    nom = 'New Name',
+    date_service = '2024-04-09',
+    etat = 'New State',
+    id_fournisseur = 2,
+    id_machine_jeu = 2,
+    id_panne = 2
+WHERE
+    id = 1;
