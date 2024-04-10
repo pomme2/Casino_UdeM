@@ -162,3 +162,25 @@ else
 	;
 
 end;
+
+
+DECLARE @profit DECIMAL(19, 4);
+DECLARE @cout DECIMAL(19, 4);
+DECLARE @real_profit DECIMAL(19, 4);
+
+DECLARE real_profit_cursor CURSOR FOR
+SELECT profit, cout
+FROM recette;
+
+OPEN real_profit_cursor
+FETCH NEXT FROM real_profit_cursor INTO @profit, @cout;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	SET @real_profit = @profit - @cout;
+
+	FETCH NEXT FROM real_profit_cursor INTO @real_profit;
+END
+
+CLOSE real_profit_cursor;
+DEALLOCATE real_profit_cursor;
