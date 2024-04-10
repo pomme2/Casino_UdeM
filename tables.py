@@ -17,41 +17,16 @@ def render_tables_html():
     cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE';")
     tables = cursor.fetchall()
 
-    # Generation HTML
+    # Génération HTML
     nav_links = ""
     for table in tables:
         table_name = table[0]
         nav_links += f"<li><a href='#{table_name}'>{table_name}</a></li>"
 
-    # Generation HTML pour les tables
-    html_content = f"""<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SQL Data</title>
-        <link rel="stylesheet" href="../static/CSS/casino.css">
-    </head>
-
-    <body>
-    <div class="sidebar">
-        <h2 class="sidebar-title">Casino</h2>
-            <nav>
-                <ul>{nav_links}</ul>
-            </nav>
-        <div id="bottom-link" style="text-align: center;">
-            <a href="../static/requetes.html" class="button" class="button">Consulter les requêtes SQL</a>
-        </div>    
-    </div>
-
-    <div class="main-content">
-
-        """
-
-    # Insert the form for data insertion
-    html_content += """
-        <h2>Insert Data</h2>
-        <h2> JEU</h2> 
+    sidebar_html = """
+    <div class="right-sidebar" id="right-sidebar">
+        <h1>INSERT</h1>
+        <h2>Jeu</h2> 
         <form action="/insert_jeu" method="post">
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
@@ -69,7 +44,7 @@ def render_tables_html():
         </form>
 
         <form action="/insert_panneau_affichage" method="post">
-        <h2> Panneau Affichage</h2>
+        <h2>Panneau Affichage</h2>
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
             
@@ -86,7 +61,7 @@ def render_tables_html():
         </form>
 
         <form action="/insert_camera_surveillance" method="post">
-        <h2> Camera Surveillance</h2>
+        <h2>Camera Surveillance</h2>
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
             
@@ -95,12 +70,9 @@ def render_tables_html():
             
             <input type="submit" value="Submit">
         </form>
-    """
-    
-    # Add update option
-    html_content += """
-        <h2>Update Data</h2>
-        <h2> JEU</h2>
+        
+        <h1>UPDATE</h1>
+        <h2>Jeu</h2>
         <form action="/update_jeu" method="post">
             <label for="update_id">ID:</label><br>
             <input type="text" id="update_id" name="id"><br>
@@ -132,7 +104,44 @@ def render_tables_html():
 
             <input type="submit" value="Submit">
         </form>
+    </div>
+    <div class="sidebar-trigger" onclick="toggleSidebar()">
+        <i>&rarr;</i>
+    </div>
+    <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('right-sidebar');
+        sidebar.classList.toggle('active');
+        const arrowIcon = document.querySelector('.sidebar-trigger i');
+        arrowIcon.style.transform = sidebar.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+    </script>
     """
+
+    html_content = f"""<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SQL Data</title>
+        <link rel="stylesheet" href="../static/CSS/casino.css">
+    </head>
+
+    <body>
+    <div class="left-sidebar">
+        <h2 class="left-sidebar-title">Casino</h2>
+            <nav>
+                <ul>{nav_links}</ul>
+            </nav>
+        <div id="bottom-link" style="text-align: center;">
+            <a href="../static/requetes.html" class="button" class="button">Consulter les requêtes SQL</a>
+        </div>    
+    </div>
+
+    <div class="main-content">
+    """
+
+    html_content += sidebar_html
 
     for table in tables:
         table_name = table[0]
@@ -142,7 +151,7 @@ def render_tables_html():
         html_content += f"<div id='{table_name}'><h2>{table_name}:</h2>"
         html_content += "<table border='1'><tr>"
 
-        # Generation des Titres
+        # Génération des titres
         for column in cursor.description:
             html_content += f"<th>{column[0]}</th>"
         html_content += "<th>Actions</th>"  # Ajout de l'en-tête "Actions"
@@ -153,8 +162,7 @@ def render_tables_html():
             html_content += "<tr>"
             for value in row:
                 html_content += f"<td>{value}</td>"
-            # Ajout d'un formulaire de suppression dans chaque ligne
-            row_id = row[0]  # Assumant que l'ID est la première colonne de la table
+            row_id = row[0] 
             html_content += f'''
             <td>
                 <form action="/" method="POST">
@@ -168,7 +176,6 @@ def render_tables_html():
 
         html_content += "</table></div>"
 
-    html_content += "</body></html>" 
+    html_content += "</div></body></html>" 
 
-    # Retourne le contenu HTML généré
     return html_content

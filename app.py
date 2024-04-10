@@ -1,13 +1,13 @@
 from flask import Flask, request, redirect, url_for, render_template_string
-from delete import delete_row
+from LMD.delete import delete_row
 
-from insert_jeu import insert_data_jeu
-from insert_panneau_affichage import insert_data_panneau_affichage
-from insert_camera_surveillance import insert_data_camera_surveillance
+from LMD.insert_jeu import insert_data_jeu
+from LMD.insert_panneau_affichage import insert_data_panneau_affichage
+from LMD.insert_camera_surveillance import insert_data_camera_surveillance
 
-from update_jeu import update_data_jeu
-from update_panneau_affichage import update_data_panneau_affichage
-from update_camera_surveillance import update_data_camera_surveillance
+from LMD.update_jeu import update_data_jeu
+from LMD.update_panneau_affichage import update_data_panneau_affichage
+from LMD.update_camera_surveillance import update_data_camera_surveillance
 
 from tables import render_tables_html  # Import the insert_data method
 

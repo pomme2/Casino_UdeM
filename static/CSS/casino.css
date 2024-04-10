@@ -7,7 +7,7 @@ body {
     overflow-x: hidden;
 }
 
-.sidebar {
+.left-sidebar {
     position: fixed;
     left: 0;
     top: 0;
@@ -20,7 +20,7 @@ body {
     z-index: 1000;
 }
 
-.sidebar-title {
+.left-sidebar-title {
     color: #fff;
     margin-bottom: 20px;
     padding: 0 20px;
@@ -29,7 +29,7 @@ body {
     padding-bottom: 10px;
 }
 
-.sidebar a {
+.left-sidebar a {
     color: #ddd;
     text-decoration: none;
     padding: 15px 20px;
@@ -39,38 +39,129 @@ body {
     display: block;
 }
 
-.sidebar a:hover,
-.sidebar a:focus {
+.left-sidebar a:hover,
+.left-sidebar a:focus {
     background-color: #007bff;
     color: white;
 }
 
-.sidebar::-webkit-scrollbar {
-    width: 10px; 
+.left-sidebar::-webkit-scrollbar {
+    width: 10px;
 }
 
-.sidebar::-webkit-scrollbar-track {
-    background: #2c2c2c; 
+.left-sidebar::-webkit-scrollbar-track {
+    background: #2c2c2c;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
-    background: #007bff; 
+.left-sidebar::-webkit-scrollbar-thumb {
+    background: #007bff;
     border-radius: 5px;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background: #0056b3; 
+.left-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
 }
 
-.sidebar {
-    scrollbar-width: thin; 
-    scrollbar-color: #007bff #2c2c2c; 
+.left-sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: #007bff #2c2c2c;
 }
 
+.right-sidebar {
+    position: fixed;
+    right: -400px; /* Start hidden off-screen */
+    top: 0;
+    width: 400px; /* Adjust width as needed */
+    height: 100%;
+    background: #f8f9fa; /* Light grey background for a modern look */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: right 0.5s ease; /* Smooth transition for opening/closing */
+    z-index: 1001;
+    padding: 20px;
+    overflow-y: auto; /* Ensure content is scrollable */
+    border-left: 1px solid #dee2e6; /* Add a subtle border */
+}
+
+.sidebar-trigger {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 60px;
+    background-color: #007bff; /* Primary color for visibility */
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+    z-index: 1002;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    user-select: none;
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.sidebar-trigger:hover {
+    background-color: #0056b3; /* Darker shade on hover for feedback */
+}
+
+/* Improve font readability */
+.right-sidebar h2 {
+    color: #333; /* Dark color for contrast */
+    margin-top: 0;
+    padding-top: 20px; /* Add space above the first heading */
+    border-bottom: 1px solid #dee2e6; /* Separator for visual structure */
+    padding-bottom: 10px; /* Space below the heading */
+}
+
+.right-sidebar form {
+    margin-top: 20px; /* Add space between forms */
+}
+
+.right-sidebar label {
+    display: block; /* Ensure labels appear above inputs */
+    margin-bottom: .5rem; /* Space below each label */
+    color: #495057; /* Dark grey for readability */
+    font-size: .9rem; /* Slightly smaller font size */
+}
+
+.right-sidebar input[type="text"],
+.right-sidebar input[type="submit"] {
+    width: 100%; /* Maximize width within sidebar */
+    padding: .375rem .75rem; /* Padding for touch friendliness */
+    margin-bottom: 1rem; /* Space between form elements */
+    border: 1px solid #ced4da; /* Subtle border */
+    border-radius: .25rem; /* Rounded corners for modern look */
+}
+
+.right-sidebar input[type="submit"] {
+    background-color: #007bff; /* Use primary color */
+    color: white; /* Contrast text */
+    font-weight: bold; /* Make button text stand out */
+    border: none; /* Remove border for buttons */
+}
+
+.right-sidebar input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker on hover for interaction feedback */
+    cursor: pointer; /* Indicate clickable */
+}
+
+/* Smoothly reveal sidebar */
+.right-sidebar.active {
+    right: 0; /* Align with the right edge of the viewport */
+}
+
+.sidebar-trigger i {
+    transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+/* When the sidebar is active, rotate the arrow icon */
+.right-sidebar.active + .sidebar-trigger i {
+    transform: rotate(180deg);
+}
 
 .main-content {
     margin-left: 250px;
-    /* Equal to the sidebar's width */
     width: calc(100% - 250px);
     overflow-y: auto;
     position: relative;
@@ -92,7 +183,6 @@ li {
     margin-bottom: 10px;
 }
 
-
 table {
     margin: 0 auto;
     max-width: 800px;
@@ -113,8 +203,9 @@ td {
     border-bottom: 1px solid #ddd;
 }
 
-td:last-child {
-    text-align: center; 
+.action-cell {
+    text-align: center;
+    vertical-align: middle;
 }
 
 th {
@@ -179,30 +270,31 @@ h2 {
     text-decoration: none;
 }
 
-/* Button styling */
 .delete-btn {
     padding: 8px 15px;
-    background-color: #dc3545; 
+    background-color: #dc3545;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s; 
+    transition: background-color 0.3s, transform 0.1s;
 }
 
-.delete-btn:hover, .delete-btn:focus {
-    background-color: #c82333; 
-    transform: scale(1.05); 
-    color: white; 
-    text-decoration: none; 
-    outline: none; 
+.delete-btn:hover,
+.delete-btn:focus {
+    background-color: #c82333;
+    transform: scale(1.05);
+    color: white;
+    text-decoration: none;
+    outline: none;
 }
 
 .form-container {
-    width: 50%; /* Adjust the width as needed */
-    margin: 0 auto; /* This centers the container horizontally */
+    width: 50%;
+    margin: 0 auto;
 }
+
 form {
-    width: 50%; /* Adjust the width as needed */
-    margin: 0 auto; /* This centers the form horizontally */
+    width: 50%;
+    margin: 0 auto;
 }
