@@ -30,7 +30,7 @@ def render_tables_html():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SQL Data</title>
-        <link rel="stylesheet" href="../static/casino.css">
+        <link rel="stylesheet" href="../static/CSS/casino.css">
     </head>
 
     <body>

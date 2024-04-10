@@ -65,7 +65,7 @@ def execute_and_write_to_html(proc_name, *args, file_name):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQL Data</title>
-    <link rel="stylesheet" href="../static/tables.css">
+    <link rel="stylesheet" href="../static/CSS/tables.css">
 </head>
 <body>
 <h2>{camel_case_to_title(proc_name)}:</h2>
@@ -82,34 +82,34 @@ def execute_and_write_to_html(proc_name, *args, file_name):
 
 # Fonctions pour les procédures stockées :
 def rechercheProfitInterval(date1, date2):
-    execute_and_write_to_html("rechercheProfitInterval", date1, date2, file_name="output_profit_intervalle.html")
+    execute_and_write_to_html("rechercheProfitInterval", date1, date2, file_name="table_profit_intervalle.html")
 
 def rechercheProfitDate(date1):
-    execute_and_write_to_html("rechercheProfitDate", date1, file_name="output_profit_date.html")
+    execute_and_write_to_html("rechercheProfitDate", date1, file_name="table_profit_date.html")
 
 def recherchePieceParPanne(enPanne):
-    execute_and_write_to_html("recherchePieceParPanne", enPanne, file_name="output_piece_par_panne.html")
+    execute_and_write_to_html("recherchePieceParPanne", enPanne, file_name="table_piece_par_panne.html")
 
 def NbrPieceParFournisseur():
-    execute_and_write_to_html("NbrPieceParFournisseur", file_name="output_piece_par_fournisseur.html")
+    execute_and_write_to_html("NbrPieceParFournisseur", file_name="table_piece_par_fournisseur.html")
 
 def PersonnelSpecifique(id_role):
-    execute_and_write_to_html("PersonnelSpecifique", id_role, file_name="output_personnel_specifique.html")
+    execute_and_write_to_html("PersonnelSpecifique", id_role, file_name="table_personnel_specifique.html")
 
 def listePanne():
-    execute_and_write_to_html("listePanne", file_name="output_liste_panne.html")
+    execute_and_write_to_html("listePanne", file_name="table_liste_panne.html")
 
 def listeProfitJeuParSecteur():
-    execute_and_write_to_html("listeProfitJeuParSecteur", file_name="output_liste_profit_jeu_par_secteur.html")
+    execute_and_write_to_html("listeProfitJeuParSecteur", file_name="table_liste_profit_jeu_par_secteur.html")
 
 def listeProfitMachineParSecteur():
-    execute_and_write_to_html("listeProfitMachineParSecteur", file_name="output_liste_profit_machine_par_secteur.html")
+    execute_and_write_to_html("listeProfitMachineParSecteur", file_name="table_liste_profit_machine_par_secteur.html")
 
 def listeProfitMachineParPanne(enPanne):
-    execute_and_write_to_html("listeProfitMachineParPanne", enPanne, file_name="output_liste_profit_machine_par_panne.html")
+    execute_and_write_to_html("listeProfitMachineParPanne", enPanne, file_name="table_liste_profit_machine_par_panne.html")
 
 def listeProfitJeuxParPanne(enPanne):
-    execute_and_write_to_html("listeProfitJeuxParPanne", enPanne, file_name="output_liste_profit_jeux_par_panne.html")
+    execute_and_write_to_html("listeProfitJeuxParPanne", enPanne, file_name="table_liste_profit_jeux_par_panne.html")
 
 # Exécute les procédures stockées et enregistre les résultats dans des fichiers HTML
 rechercheProfitInterval('2023-01-01', '2023-04-09')
