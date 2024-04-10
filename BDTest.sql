@@ -571,6 +571,3 @@ else
 	;
 
 end;
-
-SELECT * FROM panneau_affichage;
-SELECT * FROM jeu;

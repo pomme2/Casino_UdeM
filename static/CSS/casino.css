@@ -69,17 +69,17 @@ body {
 
 .right-sidebar {
     position: fixed;
-    right: -400px; /* Start hidden off-screen */
+    right: -400px;
     top: 0;
-    width: 400px; /* Adjust width as needed */
+    width: 400px;
     height: 100%;
-    background: #f8f9fa; /* Light grey background for a modern look */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    transition: right 0.5s ease; /* Smooth transition for opening/closing */
+    background: #f8f9fa;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.5s ease;
     z-index: 1001;
     padding: 20px;
-    overflow-y: auto; /* Ensure content is scrollable */
-    border-left: 1px solid #dee2e6; /* Add a subtle border */
+    overflow-y: auto;
+    border-left: 1px solid #dee2e6;
 }
 
 .sidebar-trigger {
@@ -89,7 +89,7 @@ body {
     transform: translateY(-50%);
     width: 30px;
     height: 60px;
-    background-color: #007bff; /* Primary color for visibility */
+    background-color: #007bff;
     color: white;
     text-align: center;
     line-height: 60px;
@@ -98,65 +98,64 @@ body {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     user-select: none;
-    transition: background-color 0.3s; /* Smooth background color transition */
+    transition: background-color 0.3s;
 }
 
 .sidebar-trigger:hover {
-    background-color: #0056b3; /* Darker shade on hover for feedback */
+    background-color: #0056b3;
 }
 
 /* Improve font readability */
 .right-sidebar h2 {
-    color: #333; /* Dark color for contrast */
+    color: #333;
     margin-top: 0;
-    padding-top: 20px; /* Add space above the first heading */
-    border-bottom: 1px solid #dee2e6; /* Separator for visual structure */
-    padding-bottom: 10px; /* Space below the heading */
+    padding-top: 20px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
 }
 
 .right-sidebar form {
-    margin-top: 20px; /* Add space between forms */
+    margin-top: 20px;
 }
 
 .right-sidebar label {
-    display: block; /* Ensure labels appear above inputs */
-    margin-bottom: .5rem; /* Space below each label */
-    color: #495057; /* Dark grey for readability */
-    font-size: .9rem; /* Slightly smaller font size */
+    display: block;
+    margin-bottom: .5rem;
+    color: #495057;
+    font-size: .9rem;
 }
 
 .right-sidebar input[type="text"],
 .right-sidebar input[type="submit"] {
-    width: 100%; /* Maximize width within sidebar */
-    padding: .375rem .75rem; /* Padding for touch friendliness */
-    margin-bottom: 1rem; /* Space between form elements */
-    border: 1px solid #ced4da; /* Subtle border */
-    border-radius: .25rem; /* Rounded corners for modern look */
+    width: 100%;
+    padding: .375rem .75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
 }
 
 .right-sidebar input[type="submit"] {
-    background-color: #007bff; /* Use primary color */
-    color: white; /* Contrast text */
-    font-weight: bold; /* Make button text stand out */
-    border: none; /* Remove border for buttons */
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
 }
 
 .right-sidebar input[type="submit"]:hover {
-    background-color: #0056b3; /* Darker on hover for interaction feedback */
-    cursor: pointer; /* Indicate clickable */
+    background-color: #0056b3;
+    cursor: pointer;
 }
 
-/* Smoothly reveal sidebar */
 .right-sidebar.active {
-    right: 0; /* Align with the right edge of the viewport */
+    right: 0;
 }
 
 .sidebar-trigger i {
-    transition: transform 0.3s ease; /* Smooth rotation */
+    transition: transform 0.3s ease;
 }
 
-/* When the sidebar is active, rotate the arrow icon */
-.right-sidebar.active + .sidebar-trigger i {
+
+.right-sidebar.active+.sidebar-trigger i {
     transform: rotate(180deg);
 }
 
