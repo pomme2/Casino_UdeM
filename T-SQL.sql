@@ -184,3 +184,28 @@ END
 
 CLOSE real_profit_cursor;
 DEALLOCATE real_profit_cursor;
+
+
+CREATE FUNCTION dbo.GetAverageProfitPerGame
+(
+    @gameId INT,
+    @startDate DATE,
+    @endDate DATE
+)
+RETURNS DECIMAL(19, 4)
+AS
+BEGIN
+    DECLARE @averageProfit DECIMAL(19, 4);
+
+    SELECT @averageProfit = AVG(profit)
+    FROM recette AS r
+    INNER JOIN machine_de_jeu AS mdj ON r.id_machine_de_jeu = mdj.id
+    WHERE mdj.id_jeu = @gameId AND
+          r.date_recette BETWEEN @startDate AND @endDate;
+
+    -- If there are no records, ensure we return 0 instead of NULL
+    IF @averageProfit IS NULL
+        SET @averageProfit = 0;
+
+    RETURN @averageProfit;
+END;
