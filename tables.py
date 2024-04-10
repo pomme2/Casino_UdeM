@@ -51,6 +51,7 @@ def render_tables_html():
     # Insert the form for data insertion
     html_content += """
         <h2>Insert Data</h2>
+        <h2> JEU</h2> 
         <form action="/insert_jeu" method="post">
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
@@ -68,6 +69,7 @@ def render_tables_html():
         </form>
 
         <form action="/insert_panneau_affichage" method="post">
+        <h2> Panneau Affichage</h2>
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
             
@@ -84,6 +86,7 @@ def render_tables_html():
         </form>
 
         <form action="/insert_camera_surveillance" method="post">
+        <h2> Camera Surveillance</h2>
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
             
@@ -97,6 +100,7 @@ def render_tables_html():
     # Add update option
     html_content += """
         <h2>Update Data</h2>
+        <h2> JEU</h2>
         <form action="/update_jeu" method="post">
             <label for="update_id">ID:</label><br>
             <input type="text" id="update_id" name="id"><br>
@@ -108,6 +112,7 @@ def render_tables_html():
         </form>
 
         <form action="/update_panneau_affichage" method="post">
+        <h2> Panneau Affichage</h2>
             <label for="update_id">ID:</label><br>
             <input type="text" id="update_id" name="id"><br>
 
@@ -118,6 +123,7 @@ def render_tables_html():
         </form>
 
         <form action="/update_camera_surveillance" method="post">
+        <h2> Camera Surveillance</h2>
             <label for="update_id">ID:</label><br>
             <input type="text" id="update_id" name="id"><br>
 
