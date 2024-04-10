@@ -51,7 +51,7 @@ def render_tables_html():
     # Insert the form for data insertion
     html_content += """
         <h2>Insert Data</h2>
-        <form action="/insert" method="post">
+        <form action="/insert_jeu" method="post">
             <label for="id">ID:</label><br>
             <input type="text" id="id" name="id"><br>
             
@@ -64,6 +64,46 @@ def render_tables_html():
             <label for="max_mise">Mise Maximale:</label><br>
             <input type="text" id="max_mise" name="max_mise"><br><br>
             
+            <input type="submit" value="Submit">
+        </form>
+
+        <form action="/insert_panneau_affichage" method="post">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" name="id"><br>
+            
+            <label for="marque">Marque:</label><br>
+            <input type="text" id="marque" name="marque"><br>
+            
+            <label for="longueur">Longueur:</label><br>
+            <input type="text" id="longueur" name="longueur"><br>
+            
+            <label for="largeur">Largeur:</label><br>
+            <input type="text" id="largeur" name="largeur"><br><br>
+            
+            <input type="submit" value="Submit">
+        </form>
+
+        <form action="/insert_camera_surveillance" method="post">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" name="id"><br>
+            
+            <label for="marque">Secteur:</label><br>
+            <input type="text" id="secteur" name="secteur"><br>
+            
+            <input type="submit" value="Submit">
+        </form>
+    """
+    
+    # Add update option
+    html_content += """
+        <h2>Update Data</h2>
+        <form action="/update" method="post">
+            <label for="update_id">ID:</label><br>
+            <input type="text" id="update_id" name="id"><br>
+
+            <label for="update_nom">New Nom:</label><br>
+            <input type="text" id="update_nom" name="nom"><br><br>
+
             <input type="submit" value="Submit">
         </form>
     """

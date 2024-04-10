@@ -1,31 +1,34 @@
 import pyodbc
 
-# Établissement d'une connexion à la base de données SQLserver (notes de cours ALIVEcode)
-conn_str = (
-    "Driver=ODBC Driver 17 for SQL Server;"
-    "Server=localhost;"
-    "Database=projdb;"
-    "Encrypt=yes;"
-    "TrustServerCertificate=yes;"
-    "Trusted_Connection=yes;"
-)
-cnxn = pyodbc.connect(conn_str)
+def update_data(nom, id):
+    # Connection string to SQL Server database
+    conn_str = (
+        "Driver=ODBC Driver 17 for SQL Server;"
+        "Server=localhost;"
+        "Database=projdb;"
+        "Encrypt=yes;"
+        "TrustServerCertificate=yes;"
+        "Trusted_Connection=yes;"
+    )
+    
+    # Establishing a connection to the database
+    cnxn = pyodbc.connect(conn_str)
+    cursor = cnxn.cursor()
 
-# Creating a cursor object
-cursor = cnxn.cursor()
+    # SQL command to update data in the 'jeu' table
+    sqlCommand = "UPDATE jeu SET nom=? WHERE id=?;"
 
-# les 2 "?" Représente une valeur à fournir durant l'exécution
-sqlCommand = "update jeu set nom=? where id=?;"
+    # Data to be provided during execution
+    data = (nom, id)
 
-data = ("Poker", 3)
-# ces 2 "?" Seront remplacés par les valeurs pthon et 10
-cursor.execute(sqlCommand, data)
+    # Replace the "?" placeholders with the values provided
+    cursor.execute(sqlCommand, data)
 
-#Validation transaction
-cnxn.commit()
+    # Committing the transaction
+    cnxn.commit()
 
-print("Données modifiées avec succès")
+    print("Data updated successfully.")
 
-cursor.close()
-cnxn.close()
+    cursor.close()
+    cnxn.close()
 
