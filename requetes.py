@@ -71,7 +71,7 @@ def execute_and_write_to_html(proc_name, *args, file_name):
 <h2>{camel_case_to_title(proc_name)}:</h2>
 {html_result}
 <div style="text-align: center;">
-    <a href="requetes.html" class="button">Retour aux requ&ecirc;tes</a>
+    <a href="../static/requetes.html" class="button">Retour aux requ&ecirc;tes</a>
 </div>
 
 </body>

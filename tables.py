@@ -40,7 +40,7 @@ def render_tables_html():
                 <ul>{nav_links}</ul>
             </nav>
         <div id="bottom-link" style="text-align: center;">
-            <a href="requetes.html" class="button" class="button">Consulter les requêtes SQL</a>
+            <a href="../static/requetes.html" class="button" class="button">Consulter les requêtes SQL</a>
         </div>    
     </div>
 
