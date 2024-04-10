@@ -1,6 +1,6 @@
 import pyodbc
 
-def update_data(nom, id):
+def update_data_panneau_affichage(marque, id):
     # Connection string to SQL Server database
     conn_str = (
         "Driver=ODBC Driver 17 for SQL Server;"
@@ -16,10 +16,10 @@ def update_data(nom, id):
     cursor = cnxn.cursor()
 
     # SQL command to update data in the 'jeu' table
-    sqlCommand = "UPDATE jeu SET nom=? WHERE id=?;"
+    sqlCommand = "UPDATE panneau_affichage SET marque=? WHERE id=?;"
 
     # Data to be provided during execution
-    data = (nom, id)
+    data = (marque, id)
 
     # Replace the "?" placeholders with the values provided
     cursor.execute(sqlCommand, data)

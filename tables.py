@@ -97,12 +97,32 @@ def render_tables_html():
     # Add update option
     html_content += """
         <h2>Update Data</h2>
-        <form action="/update" method="post">
+        <form action="/update_jeu" method="post">
             <label for="update_id">ID:</label><br>
             <input type="text" id="update_id" name="id"><br>
 
-            <label for="update_nom">New Nom:</label><br>
+            <label for="update_nom">Nouveau Nom:</label><br>
             <input type="text" id="update_nom" name="nom"><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <form action="/update_panneau_affichage" method="post">
+            <label for="update_id">ID:</label><br>
+            <input type="text" id="update_id" name="id"><br>
+
+            <label for="update_nom">Nouvelle Marque:</label><br>
+            <input type="text" id="update_Marque" name="marque"><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <form action="/update_camera_surveillance" method="post">
+            <label for="update_id">ID:</label><br>
+            <input type="text" id="update_id" name="id"><br>
+
+            <label for="update_nom">Nouveau Secteur:</label><br>
+            <input type="text" id="update_Secteur" name="secteur"><br><br>
 
             <input type="submit" value="Submit">
         </form>
