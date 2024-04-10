@@ -2,7 +2,6 @@ import pyodbc
 
 def render_tables_html():
     # Établissement d'une connexion à la base de données
-
     conn_str = (
         "Driver=ODBC Driver 17 for SQL Server;"
         "Server=localhost;"
@@ -49,6 +48,26 @@ def render_tables_html():
 
         """
 
+    # Insert the form for data insertion
+    html_content += """
+        <h2>Insert Data</h2>
+        <form action="/insert" method="post">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" name="id"><br>
+            
+            <label for="nom">Nom:</label><br>
+            <input type="text" id="nom" name="nom"><br>
+            
+            <label for="min_mise">Mise Minimale:</label><br>
+            <input type="text" id="min_mise" name="min_mise"><br>
+            
+            <label for="max_mise">Mise Maximale:</label><br>
+            <input type="text" id="max_mise" name="max_mise"><br><br>
+            
+            <input type="submit" value="Submit">
+        </form>
+    """
+
     for table in tables:
         table_name = table[0]
         cursor.execute(f"SELECT * FROM {table_name};")
@@ -85,12 +104,5 @@ def render_tables_html():
 
     html_content += "</body></html>" 
 
-# Saving HTML content to a file with UTF-8 encoding
-# with open("database_content.html", "w", encoding="utf-8") as file:
-#    file.write(html_content)
-
-    #print("HTML content saved to database_content.html")
-
     # Retourne le contenu HTML généré
     return html_content
-

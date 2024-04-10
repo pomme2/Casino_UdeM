@@ -113,3 +113,8 @@ h2 {
     color: #ffffff;
     text-decoration: none;
 }
+
+.form-container {
+    width: 50%; /* Adjust the width as needed */
+    margin: 0 auto; /* This centers the container horizontally */
+}

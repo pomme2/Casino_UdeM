@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, url_for, render_template_string
-from delete import delete_row  # Assurez-vous que cette fonction accepte 'table_name' et 'row_id'
-from tables import render_tables_html  # Cette fonction doit retourner le HTML des tables
+from delete import delete_row
+from insert import insert_data
+from tables import render_tables_html  # Import the insert_data method
 
 app = Flask(__name__, '/static')
 
@@ -9,6 +10,21 @@ def show_tables():
     # Génère et retourne le HTML pour afficher les tables
     html_content = render_tables_html()
     return render_template_string(html_content)
+
+# Endpoint for handling data insertion
+@app.route('/insert', methods=['POST'])
+def handle_insert_data():
+    # Extract data from the form
+    id = request.form['id']
+    nom = request.form['nom']
+    min_mise = request.form['min_mise']
+    max_mise = request.form['max_mise']
+    
+    # Call the insert_data method
+    insert_data(id, nom, min_mise, max_mise)
+    
+    # Redirect to the main page showing the updated tables
+    return redirect(url_for('show_tables'))
 
 # Faire distinction entre tous les delete avec les table 
 @app.route('/', methods=['POST'])
