@@ -203,7 +203,6 @@ BEGIN
     WHERE mdj.id_jeu = @gameId AND
           r.date_recette BETWEEN @startDate AND @endDate;
 
-    -- If there are no records, ensure we return 0 instead of NULL
     IF @averageProfit IS NULL
         SET @averageProfit = 0;
 
